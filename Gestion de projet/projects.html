@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <title>Gestion de Projets</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Ajout des polices Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+       
+            <div class="logo">GestionPro</div>
+            <div class="menu-toggle" aria-label="Toggle navigation">
+                ☰
+            </div>
+        <ul>
+            <li><a href="Aceuil.html">Accueil</a></li>
+            <li><a href="Bp.html">Business plan</a></li>
+            <li><a href="projects.html">Projets</a></li>
+            <li><a href="Equipe.html">Equipes</a></li>
+        </ul>
+    </nav>
+
+    <style>
+        /* Importation de la police Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Styles généraux */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f9;
+    color: #333;
+}
+
+
+
+main {
+    padding: 40px 0;
+    background-color: #fff;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.project-section,
+.task-section {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.project-input-container,
+.task-input-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.project-input-container input,
+.task-input-container input,
+.task-input-container select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.project-input-container input:focus,
+.task-input-container input:focus,
+.task-input-container select:focus {
+    border-color: #007bff;
+}
+
+button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    outline: none;
+}
+
+button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul#projectList li {
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul#projectList li:hover {
+    background-color: #f8f9fa;
+}
+
+ul#projectList li button {
+    background-color: #dc3545;
+}
+
+ul#projectList li button:hover {
+    background-color: #c82333;
+}
+
+.task-section table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.task-section th,
+.task-section td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.task-section th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 500;
+}
+
+.task-section td button {
+    background-color: #ffc107;
+    color: #fff;
+    margin-right: 5px;
+}
+
+.task-section td button:hover {
+    background-color: #e0a800;
+}
+
+.task-section td .delete-btn {
+    background-color: #dc3545;
+}
+
+.task-section td .delete-btn:hover {
+    background-color: #c82333;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 800px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+
+.footer-section {
+    margin-bottom: 20px;
+}
+
+.footer-bottom {
+    border-top: 1px solid #555;
+    padding-top: 10px;
+}
+
+.social-icon {
+    display: inline-block;
+    margin-right: 10px;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: #999;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 1024px) {
+    body {
+        padding: 0 10px;
+    }
+
+    /* Navbar responsive */
+    nav ul {
+        flex-direction: column; /* Align menu items vertically */
+        position: absolute;
+        top: 50px; /* Ajustez la position pour éviter la superposition */
+        left: 0;
+        right: 0;
+        background-color: #00308f;
+        padding: 10px 0;
+        display: none; /* Initially hidden */
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+        text-align: center;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    /* Section de projet et de tâches */
+    .project-section, .task-section {
+        padding: 15px;
+        margin-bottom: 30px;
+    }
+
+    .project-input-container,
+    .task-input-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .project-input-container input,
+    .task-input-container input,
+    .task-input-container select {
+        width: 100%; /* Utiliser toute la largeur disponible */
+    }
+
+    /* Table responsive */
+    .task-section table {
+        min-width: 100%;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        border-collapse: separate;
+    }
+
+    .task-section th,
+    .task-section td {
+        display: block;
+        text-align: left;
+        width: 100%; /* Chaque cellule prend la largeur complète */
+        box-sizing: border-box;
+    }
+
+    .task-section th {
+        font-size: 0.9em;
+        padding: 10px 8px;
+    }
+
+    .task-section td {
+        font-size: 0.85em;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .task-section tr {
+        display: table-row;
+        width: 100%;
+    }
+
+    /* Boutons */
+    button {
+        width: 100%; /* Assurez-vous que les boutons prennent toute la largeur disponible */
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    /* Footer */
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+        width: 100%; /* Prendre toute la largeur */
+    }
+
+    .footer-bottom {
+        padding-top: 15px;
+    }
+}
+
+/* Styles encore plus réactifs pour les écrans très petits */
+@media (max-width: 480px) {
+    h2, h3 {
+        font-size: 1.2em; /* Réduction des tailles de titre */
+        text-align: center;
+    }
+
+    .project-section, .task-section {
+        padding: 10px;
+    }
+
+    .project-input-container,
+    .task-input-container {
+        gap: 10px;
+    }
+
+    nav .logo {
+        font-size: 1.2em;
+    }
+
+    .social-icon {
+        margin: 5px; /* Plus petit espace entre les icônes sociales */
+    }
+}
+
+
+
+
+    </style>
+
+    <main>
+        <!-- Section d'ajout de projets -->
+        <section id="projectSection" class="project-section">
+            <h2>Gestion des Projets</h2>
+            <div class="project-input-container">
+                <input type="text" id="projectInput" placeholder="Nom du projet">
+                <button id="addProjectButton">Ajouter Projet</button>
+            </div>
+            <h3>Liste des Projets</h3>
+            <ul id="projectList">
+                <!-- Les projets ajoutés apparaîtront ici -->
+            </ul>
+        </section>
+
+        <!-- Section d'ajout de tâches -->
+        <section id="taskSection" class="task-section">
+            <h2>Ajouter des Tâches</h2>
+            <div class="task-input-container">
+                <label for="taskProjectSelect">Projet :</label>
+                <select id="taskProjectSelect">
+                    <!-- Les projets seront ajoutés ici dynamiquement -->
+                </select>
+                <input type="text" id="taskInput" placeholder="Nom de la Tâche">
+                De : <input type="date" id="startDateInput" placeholder="Date de début">
+                à : <input type="date" id="dueDateInput" placeholder="Date d'échéance">
+                <button id="addTaskButton">Ajouter Tâche</button>
+            </div>
+
+            <h3>Liste des Tâches</h3>
+            <table id="taskTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tâches</th>
+                        <th>Projets</th>
+                        <th>Date de début</th>
+                        <th>Date d'échéance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="taskList">
+                    <!-- Les tâches ajoutées apparaîtront ici -->
+                </tbody>
+            </table>
+            <div class="button-container">
+                <button id="downloadPDFButton">Télécharger PDF</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section contact">
+                <h2>Contact</h2>
+                <p>Email : <a href="mailto:Orguezyb@gmail.com" class="email-link">Orguezyb@gmail.com</a></p>
+                <p>Téléphone : +228 98 80 16 67</p>
+            </div>
+            <div class="footer-section social">
+                <h2>Suivez-nous</h2>
+                <a href="https://facebook.com" target="_blank" class="social-icon">Facebook</a>
+                <a href="https://twitter.com" target="_blank" class="social-icon">Twitter</a>
+                <a href="https://linkedin.com" target="_blank" class="social-icon">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 GestionPro. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Inclusion des scripts JavaScript -->
+    <script src="script.js"></script>
+   <script>// JavaScript pour le menu hamburger
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navUl = document.querySelector('nav ul');
+
+    menuToggle.addEventListener('click', () => {
+        navUl.classList.toggle('active');
+    });
+</script> 
+</body>
+</html>

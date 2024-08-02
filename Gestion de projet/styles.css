@@ -1,0 +1,305 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin:0;
+    padding: 0;
+}
+
+
+
+/* Style de la barre de navigation */
+nav {
+    background-color: #00308f;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+nav ul li a:hover {
+    color: #e1ff68;
+}
+
+
+
+.project-section,
+.task-section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    color: #005a9c;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.project-input-container,
+.task-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.project-input-container input[type="text"],
+.task-input-container input[type="text"],
+.task-input-container input[type="date"],
+.task-input-container select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+/* Styles pour le bouton de suppression de projet */
+.delete-project-btn {
+    background-color: #ff4d4d; /* Couleur de fond rouge pour indiquer une suppression */
+    color: white; /* Couleur du texte en blanc */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins légèrement arrondis */
+    padding: 4px 8px; /* Espacement intérieur pour le bouton */
+    font-size: 12px; /* Taille de police plus petite */
+    cursor: pointer; /* Curseur pointeur pour indiquer que c'est cliquable */
+    margin-left: 8px; /* Espacement à gauche du bouton */
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Afficher le bouton de menu sur petits écrans */
+    }
+
+    nav ul {
+        display: none; /* Cacher le menu par défaut sur petits écrans */
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #00308f;
+        z-index: 1;
+    }
+
+    nav ul.active {
+        display: flex; /* Afficher le menu quand le bouton est activé */
+    }
+
+    nav ul li {
+        margin: 5px 0; /* Espacement entre les liens dans le menu déployé */
+        text-align: center;
+    }
+}
+
+.delete-project-btn:hover {
+    background-color: #e60000; /* Couleur de fond plus foncée au survol */
+}
+
+
+footer {
+    background-color: #043c52;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.footer-section {
+    max-width: 250px;
+    text-align: left;
+}
+
+.footer-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #b2e9ff;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: #67d2fd;
+}
+
+.footer-bottom {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.social-icon {
+    margin-right: 10px;
+    color: #67d2fd;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: #fff;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #005a9c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #004080;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul#projectList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+ul#projectList li {
+    background-color: #e9ecef;
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+ul#projectList li:hover {
+    background-color: #d6d8db;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #005a9c;
+    color: #fff;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+button.action-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.delete-btn {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+button.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+button.edit-btn {
+    background-color: #3498db;
+    color: #fff;
+}
+
+button.edit-btn:hover {
+    background-color: #2980b9;
+}
+.button-container {
+    display: flex;
+    justify-content: flex-start; /* Aligne les éléments enfants à gauche */
+    align-items: center; /* Centre verticalement si nécessaire */
+    height: 10vh; /* Hauteur de la fenêtre du navigateur pour centrage vertical */
+    margin: 0; /* Supprime les marges par défaut */
+}
+
+/* Style du bouton */
+.download-plan-btn {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left:500px; /* Déplace le bouton vers la droite */
+}
+
+
+
+.download-plan-btn:hover {
+    background-color: #2980b9;
+}
+

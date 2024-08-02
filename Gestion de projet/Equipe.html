@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de l'Équipe</title>
+    <!-- Lien vers la feuille de styles externe -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lien vers la bibliothèque Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bibliothèques jsPDF et jsPDF-AutoTable pour générer des PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        /* Styles généraux pour le corps de la page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Container principal pour le contenu */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Style du titre principal */
+        .hom1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-align: center;
+        }
+
+        /* Style des sous-titres */
+        h2 {
+            color: #444;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* Section d'ajout de membre */
+        .add-member-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Styles des champs de formulaire */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Styles des boutons */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Section de la liste des membres */
+        .team-list-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styles du tableau */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #e8f4fd;
+        }
+
+        tr:hover td {
+            background-color: #d0eaff;
+        }
+
+        /* Styles des actions (boutons d'édition et de suppression) */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .actions .btn-edit {
+            background-color: #f39c12;
+        }
+
+        .actions .btn-edit:hover {
+            background-color: #e67e22;
+        }
+
+        .actions .btn-delete {
+            background-color: #e74c3c;
+        }
+
+        .actions .btn-delete:hover {
+            background-color: #c0392b;
+        }
+
+        .icon {
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .btn:hover .icon {
+            color: #fff;
+        }
+
+        /* Bouton pour télécharger le tableau */
+        .btn-download {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-download:hover {
+            background-color: #27ae60;
+        }
+
+        /* Responsive Styles */
+@media (max-width: 1024px) {
+    /* Style pour la barre de navigation */
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Réduction de la taille du titre */
+    .hom1 {
+        font-size: 1.5em;
+    }
+
+    /* Sections d'entrée de formulaire */
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    /* Boutons pleine largeur */
+    .btn, .btn-download {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-list-section {
+        padding: 10px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+        white-space: nowrap;
+    }
+
+    th,
+    td {
+        display: block;
+        width: auto;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        font-size: 0.9rem;
+    }
+
+    td {
+        font-size: 0.85rem;
+    }
+
+    /* Style des actions pour qu'elles soient plus compactes */
+    .actions {
+        gap: 3px;
+    }
+
+    .btn, .btn-download {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Style pour les petits appareils mobiles */
+    .container {
+        padding: 10px;
+    }
+
+    /* Titre principal plus petit */
+    .hom1 {
+        font-size: 1.2em;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn, .btn-download {
+        font-size: 0.75rem;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header>
+            <nav>
+                <div class="logo">GestionPro</div>
+                <div class="menu-toggle" aria-label="Toggle navigation">
+                    ☰
+                </div>
+                <ul>
+                    <li><a href="Aceuil.html">Accueil</a></li>
+                    <li><a href="Bp.html">Business plan</a></li>
+                    <li><a href="projects.html">Projets</a></li>
+                    <li><a href="Equipe.html">Equipes</a></li>
+                 
+                </ul>
+            </nav>
+            <!-- Titre de la page -->
+            <h1 class="hom1">Gestion de l'Équipe</h1>
+        </header>
+
+        <div class="container">
+            <!-- Formulaire pour ajouter un membre -->
+            <section class="add-member-section">
+                <h2>Ajouter un nouveau membre</h2>
+                <form id="add-member-form">
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="nom" required>
+                    </div>
+                    <!-- Champ pour le profil professionnel -->
+                    <div class="form-group">
+                        <label for="profil">Profil Professionnel</label>
+                        <input type="text" id="profil" name="profil" required>
+                    </div>
+                    <!-- Champ pour le téléphone -->
+                    <div class="form-group">
+                        <label for="telephone">Téléphone</label>
+                        <input type="tel" id="telephone" name="telephone" required>
+                    </div>
+                    <!-- Champ pour le lieu de résidence -->
+                    <div class="form-group">
+                        <label for="lieu">Lieu de Résidence</label>
+                        <input type="text" id="lieu" name="lieu" required>
+                    </div>
+                     <!-- Nouveau champ pour le projet -->
+                    <div class="form-group">
+                        <label for="projet">Projet</label>
+                        <input type="text" id="projet" name="projet" required>
+                    </div>
+                    <!-- Nouveau champ pour les tâches -->
+                    <div class="form-group">
+                        <label for="taches">Tâches</label>
+                        <input type="text" id="taches" name="taches" required>
+                    </div>
+                   
+                    
+                    <!-- Bouton pour soumettre le formulaire -->
+                    <button type="submit" class="btn"><i class="fas fa-plus icon"></i> Ajouter Membre</button>
+                </form>
+            </section>
+
+            <!-- Section pour afficher la liste des membres -->
+            <section class="team-list-section">
+                <h2>Liste des membres</h2>
+                <table id="team-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Profil Professionnel</th>
+                            <th>Téléphone</th>
+                            <th>Lieu de Résidence</th>
+                            <th>Projet</th>
+                            <th>Tâches</th> <!-- Nouvelle colonne pour les tâches avant les actions -->
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les lignes des membres seront générées dynamiquement ici -->
+                    </tbody>
+                </table>
+                <!-- Bouton pour télécharger la liste des membres en PDF -->
+                <button id="download-pdf" class="btn-download"><i class="fas fa-download icon"></i> Télécharger la
+                    liste PDF</button>
+            </section>
+        </div>
+    </div>v
+
+    <!-- Script JavaScript pour la gestion de l'équipe -->
+
+
+    <script>
+        // Sélectionne le formulaire d'ajout de membre
+const addMemberForm = document.getElementById('add-member-form');
+// Sélectionne le tableau des membres
+const teamTable = document.getElementById('team-table').getElementsByTagName('tbody')[0];
+
+// Fonction pour ajouter un membre au tableau
+function addMemberToTable(nom, profil, telephone, lieu, projet, taches) {
+    // Crée une nouvelle ligne
+    const row = teamTable.insertRow();
+    // Insère les cellules avec les informations du membre
+    row.insertCell(0).textContent = nom;
+    row.insertCell(1).textContent = profil; // Ajoute le profil professionnel
+    row.insertCell(2).textContent = telephone;
+    row.insertCell(3).textContent = lieu; // Ajoute le lieu de résidence
+    row.insertCell(4).textContent = projet; // Ajoute le projet
+    row.insertCell(5).textContent = taches; // Ajoute les tâches
+
+     // Crée la cellule des actions avec les boutons d'édition et de suppression
+     const actionsCell = row.insertCell(6);
+    actionsCell.classList.add('actions');
+
+    // Crée le bouton d'édition
+    const editButton = document.createElement('button');
+    editButton.classList.add('btn', 'btn-edit');
+    editButton.innerHTML = '<i class="fas fa-edit icon"></i> Éditer';
+    editButton.onclick = function () {
+        editMember(row);
+    };
+
+    // Crée le bouton de suppression
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('btn', 'btn-delete');
+    deleteButton.innerHTML = '<i class="fas fa-trash icon"></i> Supprimer';
+    deleteButton.onclick = function () {
+        deleteMember(row);
+    };
+
+    // Ajoute les boutons à la cellule des actions
+    actionsCell.appendChild(editButton);
+    actionsCell.appendChild(deleteButton);
+}
+
+// Fonction pour éditer un membre
+function editMember(row) {
+    // Affiche une boîte de dialogue pour récupérer les nouvelles valeurs
+    const newNom = prompt("Entrez le nouveau nom", row.cells[0].textContent);
+    const newProfil = prompt("Entrez le nouveau profil professionnel", row.cells[1].textContent);
+    const newTelephone = prompt("Entrez le nouveau téléphone", row.cells[2].textContent);
+    const newLieu = prompt("Entrez le nouveau lieu de résidence", row.cells[3].textContent);
+    const newProjet = prompt("Entrez le nouveau projet", row.cells[4].textContent);
+    const newTaches = prompt("Entrez les nouvelles tâches", row.cells[5].textContent);
+
+    if (newNom && newProfil && newTelephone && newLieu && newProjet && newTaches) {
+        row.cells[0].textContent = newNom;
+        row.cells[1].textContent = newProfil;
+        row.cells[2].textContent = newTelephone;
+        row.cells[3].textContent = newLieu;
+        row.cells[4].textContent = newProjet;
+        row.cells[5].textContent = newTaches;
+        saveTableData(); // Sauvegarde les données après modification
+    }
+}
+// Fonction pour supprimer un membre
+function deleteMember(row) {
+    // Affiche une confirmation avant la suppression
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce membre ?")) {
+        // Supprime la ligne du tableau
+        row.remove();
+        saveTableData(); // Sauvegarde les données après suppression
+    }
+}
+
+// Fonction pour sauvegarder les données du tableau dans le localStorage
+function saveTableData() {
+    const rows = teamTable.querySelectorAll('tr');
+    const data = Array.from(rows).map(row => {
+        const cells = row.querySelectorAll('td');
+        return {
+            nom: cells[0]?.textContent || '',
+            profil: cells[1]?.textContent || '',
+            telephone: cells[2]?.textContent || '',
+            lieu: cells[3]?.textContent || '',
+            projet: cells[4]?.textContent || '',
+            taches: cells[5]?.textContent || ''
+        };
+    });
+    localStorage.setItem('teamData', JSON.stringify(data));
+}
+
+// Fonction pour charger les données du tableau depuis le localStorage
+function loadTableData() {
+    const data = JSON.parse(localStorage.getItem('teamData')) || [];
+    data.forEach(member => addMemberToTable(member.nom, member.profil, member.telephone, member.lieu, member.projet, member.taches));
+}
+
+// Fonction pour télécharger la liste des membres au format PDF
+document.getElementById('download-pdf').addEventListener('click', function () {
+    const { jsPDF } = window.jspdf; // Charge la bibliothèque jsPDF
+    const doc = new jsPDF(); // Crée un nouveau document PDF
+
+    // Récupère le tableau HTML sans la colonne des actions
+    const table = document.getElementById('team-table');
+    const headers = table.querySelectorAll('thead th');
+    const rows = table.querySelectorAll('tbody tr');
+
+    // Prépare les données du tableau
+    const tableData = [];
+    tableData.push(Array.from(headers).slice(0, -1).map(th => th.textContent)); // Enlève la colonne des actions des en-têtes
+
+    rows.forEach(row => {
+        const cells = Array.from(row.querySelectorAll('td')).slice(0, -1); // Enlève la colonne des actions des cellules
+        tableData.push(cells.map(td => td.textContent));
+    });
+
+    // Ajoute un titre au PDF
+    doc.text('Liste des Membres', 14, 16);
+
+    // Génère le tableau PDF avec un espace entre le titre et le tableau
+    doc.autoTable({
+        head: [tableData[0]], // En-têtes du tableau sans la colonne des actions
+        body: tableData.slice(1), // Corps du tableau sans la colonne des actions
+        startY: 26, // Déplace le début du tableau plus bas pour ajouter de l'espace
+        margin: { top: 10 } // Ajoute une marge en haut du tableau
+    });
+
+    // Sauvegarde le PDF avec un nom spécifique
+    doc.save('liste_membres.pdf');
+});
+
+// Charge les données du tableau lors du chargement de la page
+window.addEventListener('load', loadTableData);
+
+// Gestionnaire d'événement pour l'envoi du formulaire
+addMemberForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // Empêche le rechargement de la page
+    // Récupère les valeurs des champs du formulaire
+    const nom = document.getElementById('nom').value;
+    const profil = document.getElementById('profil').value;
+    const telephone = document.getElementById('telephone').value;
+    const lieu = document.getElementById('lieu').value;
+    const projet = document.getElementById('projet').value;
+    const taches = document.getElementById('taches').value; // Nouveau champ pour les tâches
+
+    // Ajoute le membre au tableau
+    addMemberToTable(nom, profil, telephone, lieu, projet, taches);
+    // Réinitialise le formulaire après l'ajout
+    addMemberForm.reset();
+    // Sauvegarde les données après ajout
+    saveTableData();
+});
+
+  // JavaScript pour le menu hamburger
+  const menuToggle = document.querySelector('.menu-toggle');
+        const navUl = document.querySelector('nav ul');
+
+        menuToggle.addEventListener('click', () => {
+            navUl.classList.toggle('active');
+        });
+    </script>
+
+    
+</body>
+
+</html>

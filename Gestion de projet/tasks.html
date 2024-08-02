@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Tâches</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+
+            <div class="logo-container">
+                <img src="C:\Users\armel\OneDrive\Desktop\JAVA SCRIPT\Gestion de projet\logo.png" alt="Logo" class="logo"> <!-- Changez le chemin si nécessaire -->
+            </div>
+            <li><a href="Aceuil.html" id="homeLink">Accueil</a></li>
+            <li><a href="projects.html" id="homeLink">Projets</a></li>
+            <li><a href="tasks.html">Gestion des Tâches</a></li>
+            <li><a href="Conseils.html">Conseils</a></li>
+        </ul>
+    </nav>
+
+    <style>.content h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        color: #005a9c;
+    }</style>
+
+    <main class="content">
+        <h1>Gestion des tâches</h1>
+        
+    </main>
+
+        
+    <div class="task-input-container">
+        <label for="taskInput">Nom :</label>
+        <input type="text" id="taskInput" placeholder="Ajouter une tâche">
+        <label for="startDateInput">De :</label>
+        <input type="date" id="startDateInput" placeholder="Date de début">
+        <label for="dueDateInput">Au :</label>
+        <input type="date" id="dueDateInput" placeholder="Date d'échéance">
+        <button id="addButton">Ajouter</button>
+    </div>
+    
+    <div id="errorMessage" class="error-message"></div>
+    <table id="taskTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tâche</th>
+                <th>Date de début</th>
+                <th>Date d'échéance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="taskList"></tbody>
+    </table>
+
+   
+    <button id="downloadButton">Télécharger</button>
+
+ <div>
+        <h1></h1>
+</div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section about">
+                <h2>À propos</h2>
+                <p>Nous sommes une plateforme dédiée à la gestion des tâches, vous permettant de mieux organiser vos projets et atteindre vos objectifs plus efficacement.</p>
+            </div>
+            <div class="footer-section links">
+                <h2>Liens rapides</h2>
+                <ul>
+                    <li><a href="Aceuil.html">Accueil</a></li>
+                    <li><a href="projects.html">Projets</a></li>
+                    <li><a href="tasks.html">Gestion des Tâches</a></li>
+                    <li><a href="Conseils.html">Conseils</a></li>
+                   
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h2>Contact</h2>
+                <p>Email : <a href="mailto:contact@example.com">contact@example.com</a></p>
+                <p>Téléphone : +123 456 789</p>
+            </div>
+            <div class="footer-section social">
+                <h2>Suivez-nous</h2>
+                <a href="https://facebook.com" target="_blank" class="social-icon">Facebook</a>
+                <a href="https://twitter.com" target="_blank" class="social-icon">Twitter</a>
+                <a href="https://linkedin.com" target="_blank" class="social-icon">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Votre Entreprise. Tous droits réservés.</p>
+        </div>
+    </footer>
+</div>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - GestionPro</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Corps de la page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Wrapper de la page */
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Style de la barre de navigation */
+        nav {
+            background-color: #00308f;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 2em;
+            cursor: pointer;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+            display: block; /* Important pour faire en sorte que le lien soit cliquable */
+        }
+
+        nav ul li a:hover {
+            background-color: #004080;
+        }
+
+        /* Styles pour le menu hamburger en mode mobile */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+                background-color: #00308f;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 10px 0;
+                z-index: 1000;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                display: block;
+                text-align: center;
+            }
+
+            nav ul li a {
+                padding: 10px;
+            }
+        }
+
+        /* Styles pour le contenu principal */
+        .content {
+            background-image: url('working-791849_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .content h1,
+        .content p {
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .content h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .hom1 {
+            font-size: 2.5em;
+            margin: 40px 0;
+            color: #010f2a;
+            text-align: center;
+        }
+
+        .advice-section,
+        .motivation-quotes {
+            background: #fff;
+            padding: 30px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .advice-section h2,
+        .motivation-quotes h2 {
+            font-size: 1.8em;
+            color: #00308f;
+            margin-bottom: 15px;
+        }
+
+        .advice-section ul,
+        .motivation-quotes p {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .motivation-quotes p {
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 800px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+
+.footer-section {
+    margin-bottom: 20px;
+}
+
+.footer-bottom {
+    border-top: 1px solid #555;
+    padding-top: 10px;
+}
+
+.social-icon {
+    display: inline-block;
+    margin-right: 10px;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: #999;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <header>
+            <nav>
+                <div class="logo">GestionPro</div>
+                <div class="menu-toggle" aria-label="Toggle navigation">
+                    ☰
+                </div>
+                <ul>
+                    <li><a href="Aceuil.html">Accueil</a></li>
+                    <li><a href="Bp.html">Business plan</a></li>
+                    <li><a href="projects.html">Projets</a></li>
+                    <li><a href="Equipe.html">Équipes</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="content">
+            <h1>Bienvenue sur GestionPro</h1>
+            <p><em>GestionPro est votre plateforme idéale pour gérer vos projets efficacement. Découvrez des outils <strong> puissants</strong> pour planifier, suivre et réaliser vos projets avec succès.</em></p>
+        </main>
+
+        <section class="hom1">
+            <h1>Accueil</h1>
+            </section>
+
+            <!-- Section de conseils pour réaliser un projet à temps -->
+            <section class="advice-section">
+            <h2>La Bonne Gestion d'un Projet : Qu'est-ce que c'est ?</h2>
+            <ul>
+                <li>La gestion de projet est l'application de connaissances, de compétences, d'outils et de techniques pour planifier, exécuter et clôturer des activités dans le but d'atteindre des objectifs spécifiques et répondre aux critères de succès prédéfinis. <em><strong>Alors quelles sont les étapes pour y parvenir ?</strong></em></li>
+            </ul>
+            </section>
+
+            <section class="advice-section">
+            <h2>1. Définition Claire des Objectifs</h2>
+            <ul>
+                <li>Consiste à définir clairement ses objectifs. Ces objectifs doivent être spécifiques, mesurables, atteignables, réalistes et temporels (SMART). Une bonne définition des objectifs permet de donner une direction claire à l'équipe de projet et de mesurer le succès du projet.</li>
+            </ul>
+            </section>
+
+            <section class="advice-section">
+            <h2>2. Planification Rigoureuse</h2>
+            <ul>
+                <li>La planification est une phase cruciale dans la gestion de projet. Elle implique la création d'un plan de projet détaillé qui inclut l'identification des tâches, l'établissement des échéances, l'allocation des ressources, et la détermination des coûts. L'utilisation d'outils de gestion de projet, tels que les diagrammes de Gantt et les tableaux Kanban, peut aider à visualiser le calendrier du projet et à suivre l'avancement.</li>
+            </ul>
+            </section>
+
+            <section class="advice-section">
+            <h2>3. Constitution d'une Équipe Compétente</h2>
+            <ul>
+                <li>Une équipe de projet bien constituée est essentielle pour le succès du projet. Il est important de sélectionner des membres possédant les compétences nécessaires et complémentaires pour répondre aux exigences du projet. De plus, encourager une bonne communication et collaboration au sein de l'équipe favorise l'innovation et la résolution efficace des problèmes.</li>
+            </ul>
+            </section>
+
+            <section class="advice-section">
+            <h2>4. Gestion des Risques</h2>
+            <ul>
+                <li>Identifier et gérer les risques potentiels est une partie intégrante de la gestion de projet. Il est essentiel d'effectuer une analyse des risques pour anticiper les obstacles possibles et mettre en place des plans d'atténuation. Une gestion proactive des risques permet de minimiser l'impact des imprévus sur le déroulement du projet.</li>
+            </ul>
+            </section>
+
+            <section class="advice-section">
+            <h2>5. Suivi et Contrôle</h2>
+            <ul>
+                <li>Le suivi et le contrôle consistent à surveiller l'avancement du projet par rapport au plan initial. Cela inclut le suivi des délais, du budget, et de la qualité des livrables. Des outils de suivi de projet permettent de collecter des données en temps réel, facilitant la prise de décision éclairée et l'ajustement des actions si nécessaire.</li>
+            </ul>
+            </section>
+
+            <section class="advice-section">
+            <h2>6. Communication Efficace</h2>
+            <ul>
+                <li>La communication joue un rôle central dans la gestion de projet. Il est crucial de maintenir une communication claire et régulière avec toutes les parties prenantes, y compris l'équipe, les clients et les sponsors. Des réunions régulières, des rapports d'avancement et l'utilisation d'outils de communication modernes peuvent contribuer à maintenir tout le monde informé et aligné sur les objectifs du projet.</li>
+            </ul>
+            </section>
+
+            <section class="advice-section">
+            <h2>7. Clôture du Projet</h2>
+            <ul>
+                <li>La clôture du projet est la dernière étape et implique la finalisation de toutes les activités, la livraison des livrables, et l'évaluation des résultats par rapport aux objectifs initiaux. Une analyse rétrospective permet de tirer des enseignements pour les projets futurs, ce qui contribue à une amélioration continue des processus de gestion de projet.</li>
+            </ul>
+            </section>
+
+            <section class="advice-section">
+            <h2>Conclusion</h2>
+            <ul>
+                <li>La bonne gestion d'un projet repose sur une combinaison de planification stratégique, d'allocation judicieuse des ressources, et d'une communication efficace. En suivant ces principes fondamentaux, les chefs de projet peuvent naviguer à travers les défis et assurer le succès de leurs projets, tout en maximisant la valeur pour toutes les parties prenantes impliquées. Une gestion de projet réussie ne se limite pas à atteindre les objectifs, mais à créer une dynamique positive qui favorise l'innovation et l'amélioration continue au sein de l'organisation.</li>
+            </ul>
+            </section>
+
+            <!-- Section de motivations -->
+            <section class="motivation-quotes">
+            <h2>Gardez le Cap</h2>
+            <p>"Le succès n'est pas la clé du bonheur. Le bonheur est la clé du succès. Si vous aimez ce que vous faites, vous réussirez." — <em>Albert Schweitzer</em></p>
+            <p>"Le seul moyen de faire du bon travail est d’aimer ce que vous faites." — <em>Steve Jobs</em></p>
+            <p>"N'abandonnez jamais un rêve simplement à cause du temps qu'il faudra pour l'accomplir. Le temps passera de toute façon." — <em>Earl Nightingale</em></p>
+            <p>"Le plus grand plaisir dans la vie est de réaliser ce que les autres vous pensent incapable de réaliser." — <em>Walter Bagehot</em></p>
+            </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-container">
+                <div class="footer-section contact">
+                    <h2>Contact</h2>
+                    <p>Email : <a href="mailto:Orguezyb@gmail.com" class="email-link">Orguezyb@gmail.com</a></p>
+                    <p>Téléphone : +228 98 80 16 67</p>
+                </div>
+                <div class="footer-section social">
+                    <h2>Suivez-nous</h2>
+                    <a href="https://facebook.com" target="_blank" class="social-icon">Facebook</a>
+                    <a href="https://twitter.com" target="_blank" class="social-icon">Twitter</a>
+                    <a href="https://www.linkedin.com/in/elomaglan/" target="_blank" class="social-icon">LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 GestionPro. Tous droits réservés.</p>
+            </div>
+        </footer>
+    
+
+    <script>
+        // JavaScript pour le menu hamburger
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navUl = document.querySelector('nav ul');
+
+        menuToggle.addEventListener('click', () => {
+            navUl.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>

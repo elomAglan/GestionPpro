@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <title>Business Plan</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Styles additionnels pour la page Business Plan */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form input[type="number"],
+        form input[type="date"],
+        form textarea,
+        form select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        form textarea {
+            resize: vertical;
+        }
+
+        form .full-width {
+            grid-column: span 2;
+        }
+
+        button[type="submit"],
+        .action-button {
+            grid-column: span 2;
+            background-color: #005a9c;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover,
+        .action-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles pour la liste des business plans */
+        #businessPlanList {
+            margin-top: 20px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            padding: 10px;
+        }
+
+        .business-plan-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #e6e6e6;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .business-plan-item h4 {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #dbd9d9;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin: 0;
+        }
+
+        .business-plan-item h4:hover {
+            background-color: #005a9c;
+        }
+
+        .business-plan-details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #0056b3;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .business-plan-item.expanded .business-plan-details {
+            display: block;
+        }
+
+        .business-plan-item p {
+            margin: 5px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .action-button {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .action-button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Styles pour le bouton de téléchargement */
+        .download-button {
+            background-color: #7bff6e;
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        .download-button:hover {
+            background-color: #69cc5a;
+        }
+
+
+       
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">GestionPro</div>
+                <div class="menu-toggle" aria-label="Toggle navigation">
+                    ☰
+                </div>
+        <ul>
+            <li><a href="Aceuil.html">Accueil</a></li>
+            <li><a href="Bp.html">Business plan</a></li>
+            <li><a href="projects.html">Projets</a></li>
+            <li><a href="Equipe.html">Equipes</a></li>
+            
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Créer un Business Plan</h2>
+        <form id="businessPlanForm">
+            <!-- Nouveau champ pour le nom du projet -->
+            <div class="full-width">
+                <label for="projectName">Nom du Projet:</label>
+                <input type="text" id="projectName" required>
+            </div>
+            <div class="full-width">
+                <label for="businessName">Nom de l'entreprise:</label>
+                <input type="text" id="businessName" required>
+            </div>
+            <div class="full-width">
+                <label for="businessDescription">Description de l'entreprise:</label>
+                <textarea id="businessDescription" rows="4" required></textarea>
+            </div>
+            <div class="full-width">
+                <label for="missionStatement">Déclaration de Mission:</label>
+                <textarea id="missionStatement" rows="3" required></textarea>
+            </div>
+            <div class="full-width">
+                <label for="objectives">Objectifs:</label>
+                <textarea id="objectives" rows="3" required></textarea>
+            </div>
+            <div class="full-width">
+                <label for="marketAnalysis">Analyse de Marché:</label>
+                <textarea id="marketAnalysis" rows="4" required></textarea>
+            </div>
+            <div class="full-width">
+                <label for="productsAndServices">Produits et Services:</label>
+                <textarea id="productsAndServices" rows="4" required></textarea>
+            </div>
+            <div class="full-width">
+                <label for="targetMarket">Marché Cible:</label>
+                <input type="text" id="targetMarket" required>
+            </div>
+            <div class="full-width">
+                <label for="marketingStrategy">Stratégie de Marketing:</label>
+                <textarea id="marketingStrategy" rows="4" required></textarea>
+            </div>
+            <div class="full-width">
+                <label for="legalAspect">Aspect Judiciaire:</label>
+                <textarea id="legalAspect" rows="4" required></textarea>
+            </div>
+            <div class="full-width">
+                <label for="financialPlan">Plan Financier:</label>
+                <textarea id="financialPlan" rows="5" required></textarea>
+            </div>
+            <div>
+                <label for="startDate">Date de Début:</label>
+                <input type="date" id="startDate" required>
+            </div>
+            <div>
+                <label for="endDate">Date de Fin:</label>
+                <input type="date" id="endDate" required>
+            </div>
+            <button type="submit">Enregistrer le Business Plan</button>
+        </form>
+
+        <!-- Section pour afficher les business plans enregistrés -->
+        <div class="business-plan-list" id="businessPlanList">
+            <h3>Business Plans Enregistrés</h3>
+            <!-- Les plans s'afficheront ici -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let businessPlans = loadBusinessPlans();
+            const businessPlanList = document.getElementById('businessPlanList');
+
+            // Fonction pour générer l'affichage HTML des business plans
+            function renderBusinessPlans() {
+                businessPlanList.innerHTML = ''; // Effacer le contenu précédent
+                businessPlans.forEach((plan, index) => {
+                    const businessPlanItem = document.createElement('div');
+                    businessPlanItem.classList.add('business-plan-item');
+                    businessPlanItem.innerHTML = `
+                        <h4>${plan.projectName}</h4>
+                        <div class="business-plan-details">
+                            <p><strong>Nom de l'entreprise :</strong> ${plan.businessName}</p>
+                            <p><strong>Description :</strong> ${plan.businessDescription}</p>
+                            <p><strong>Mission :</strong> ${plan.missionStatement}</p>
+                            <p><strong>Objectifs :</strong> ${plan.objectives}</p>
+                            <p><strong>Analyse de Marché :</strong> ${plan.marketAnalysis}</p>
+                            <p><strong>Produits et Services :</strong> ${plan.productsAndServices}</p>
+                            <p><strong>Marché Cible :</strong> ${plan.targetMarket}</p>
+                            <p><strong>Stratégie de Marketing :</strong> ${plan.marketingStrategy}</p>
+                            <p><strong>Aspect Judiciaire :</strong> ${plan.legalAspect}</p>
+                            <p><strong>Plan Financier :</strong> ${plan.financialPlan}</p>
+                            <p><strong>Date de Début :</strong> ${plan.startDate}</p>
+                            <p><strong>Date de Fin :</strong> ${plan.endDate}</p>
+                            <div class="action-buttons">
+                                <button class="action-button" onclick="deleteBusinessPlan(${index})">Supprimer</button>
+                                <button class="action-button download-button" onclick="downloadBusinessPlan(${index})">Télécharger</button>
+                            </div>
+                        </div>
+                    `;
+                    // Ajouter un gestionnaire de clic pour le titre pour afficher/masquer les détails
+                    businessPlanItem.querySelector('h4').addEventListener('click', () => {
+                        businessPlanItem.classList.toggle('expanded');
+                    });
+                    businessPlanList.appendChild(businessPlanItem);
+                });
+            }
+
+            // Afficher les business plans au chargement de la page
+            renderBusinessPlans();
+
+            // Fonction pour supprimer un business plan
+            function deleteBusinessPlan(index) {
+                if (confirm('Êtes-vous sûr de vouloir supprimer ce business plan ?')) {
+                    businessPlans.splice(index, 1); // Supprimer le business plan
+                    saveBusinessPlans(); // Sauvegarder la liste mise à jour
+                    renderBusinessPlans(); // Réafficher la liste mise à jour
+                }
+            }
+
+            // Fonction pour télécharger un business plan au format PDF
+            async function downloadBusinessPlan(index) {
+                const { jsPDF } = window.jspdf;
+                const plan = businessPlans[index];
+                const doc = new jsPDF();
+
+                doc.setFontSize(18);
+                doc.text(`Business Plan: ${plan.projectName}`, 10, 20);
+                doc.setFontSize(12);
+                doc.text(`Nom de l'entreprise: ${plan.businessName}`, 10, 30);
+                doc.text(`Description: ${plan.businessDescription}`, 10, 40);
+                doc.text(`Mission: ${plan.missionStatement}`, 10, 50);
+                doc.text(`Objectifs: ${plan.objectives}`, 10, 60);
+                doc.text(`Analyse de Marché: ${plan.marketAnalysis}`, 10, 70);
+                doc.text(`Produits et Services: ${plan.productsAndServices}`, 10, 80);
+                doc.text(`Marché Cible: ${plan.targetMarket}`, 10, 90);
+                doc.text(`Stratégie de Marketing: ${plan.marketingStrategy}`, 10, 100);
+                doc.text(`Aspect Judiciaire: ${plan.legalAspect}`, 10, 110);
+                doc.text(`Plan Financier: ${plan.financialPlan}`, 10, 120);
+                doc.text(`Date de Début: ${plan.startDate}`, 10, 130);
+                doc.text(`Date de Fin: ${plan.endDate}`, 10, 140);
+
+                doc.save(`${plan.projectName}_Business_Plan.pdf`);
+            }
+
+            // Gestionnaire de soumission de formulaire initial
+            function handleSubmit(event) {
+                event.preventDefault();
+
+                const newBusinessPlan = {
+                    projectName: document.getElementById('projectName').value,
+                    businessName: document.getElementById('businessName').value,
+                    businessDescription: document.getElementById('businessDescription').value,
+                    missionStatement: document.getElementById('missionStatement').value,
+                    objectives: document.getElementById('objectives').value,
+                    marketAnalysis: document.getElementById('marketAnalysis').value,
+                    productsAndServices: document.getElementById('productsAndServices').value,
+                    targetMarket: document.getElementById('targetMarket').value,
+                    marketingStrategy: document.getElementById('marketingStrategy').value,
+                    legalAspect: document.getElementById('legalAspect').value,
+                    financialPlan: document.getElementById('financialPlan').value,
+                    startDate: document.getElementById('startDate').value,
+                    endDate: document.getElementById('endDate').value
+                };
+
+                businessPlans.push(newBusinessPlan); // Ajouter le nouveau plan à la liste
+                saveBusinessPlans(); // Sauvegarder la liste mise à jour
+                renderBusinessPlans(); // Réafficher la liste mise à jour
+
+                // Réinitialiser le formulaire
+                document.getElementById('businessPlanForm').reset();
+            }
+
+            // Attacher le gestionnaire de soumission initial au formulaire
+            document.getElementById('businessPlanForm').addEventListener('submit', handleSubmit);
+
+            // Fonction pour sauvegarder les business plans dans localStorage
+            function saveBusinessPlans() {
+                localStorage.setItem('businessPlans', JSON.stringify(businessPlans));
+            }
+
+            // Fonction pour charger les business plans depuis localStorage
+            function loadBusinessPlans() {
+                const savedPlans = localStorage.getItem('businessPlans');
+                return savedPlans ? JSON.parse(savedPlans) : [];
+            }
+
+            // Ajouter ces fonctions à l'objet global pour qu'elles soient accessibles dans le HTML
+            window.deleteBusinessPlan = deleteBusinessPlan;
+            window.downloadBusinessPlan = downloadBusinessPlan;
+        });
+
+        // JavaScript pour le menu hamburger
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navUl = document.querySelector('nav ul');
+
+        menuToggle.addEventListener('click', () => {
+            navUl.classList.toggle('active');
+        });
+    </script>
+</body>
+
+  
+
+  </script>
+</html>
